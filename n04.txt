@@ -1,0 +1,66 @@
+#include <stdio.h>
+
+struct Polynomial {
+    int coeff;
+    int exp;
+};
+
+int main() {
+    struct Polynomial p1[10], p2[10], sum[10];
+    int n1, n2, i, j, k = 0;
+
+    printf("Enter number of terms in first polynomial: ");
+    scanf("%d", &n1);
+    printf("Enter coefficients and exponents:\n");
+    for(i = 0; i < n1; i++)
+        scanf("%d%d", &p1[i].coeff, &p1[i].exp);
+
+    printf("Enter number of terms in second polynomial: ");
+    scanf("%d", &n2);
+    printf("Enter coefficients and exponents:\n");
+    for(i = 0; i < n2; i++)
+        scanf("%d%d", &p2[i].coeff, &p2[i].exp);
+
+    i = 0; j = 0;
+    while(i < n1 && j < n2) {
+        if(p1[i].exp == p2[j].exp) {
+            sum[k].coeff = p1[i].coeff + p2[j].coeff;
+            sum[k].exp = p1[i].exp;
+            i++; j++;
+        }
+        else if(p1[i].exp > p2[j].exp) {
+            sum[k].coeff = p1[i].coeff;
+            sum[k].exp = p1[i].exp;
+            i++;
+        }
+        else {
+            sum[k].coeff = p2[j].coeff;
+            sum[k].exp = p2[j].exp;
+            j++;
+        }
+        k++;
+    }
+
+    while(i < n1) {
+        sum[k].coeff = p1[i].coeff;
+        sum[k].exp = p1[i].exp;
+        i++; k++;
+    }
+
+    while(j < n2) {
+        sum[k].coeff = p2[j].coeff;
+        sum[k].exp = p2[j].exp;
+        j++; k++;
+    }
+
+    printf("\nSum of the polynomials:\n");
+    for(i = 0; i < k; i++) {
+        if(sum[i].coeff != 0) {
+            printf("%dx^%d", sum[i].coeff, sum[i].exp);
+            if(i < k - 1)
+                printf(" + ");
+        }
+    }
+    printf("\n");
+    return 0;
+}
